@@ -46,31 +46,45 @@ function Schedule(props) {
         setApptTypes(newArr)
     }
 
+    const handleSave = (e) => {
+        e.preventDefault()
+        alert('Save Calendar')
+        console.log(appts)
+    }
+
     const newCalForm = () => {
         return (
-            <Form style={styles.form}>
-                <Form.Group controlId="calName">
-                    <Form.Label>Calendar Name</Form.Label>
-                    <Form.Control onChange={handleName} type="name" placeholder="Enter name" />
-                </Form.Group>
-                {apptTypes}
+            <div>
+                <Form style={styles.form}>
+                    <Form.Group controlId="calName">
+                        <Form.Label>Calendar Name</Form.Label>
+                        <Form.Control onChange={handleName} type="name" placeholder="Enter name" />
+                    </Form.Group>
+                    {apptTypes}
+                    <Button 
+                        size='sm' 
+                        style={styles.button} 
+                        variant='outline-secondary'
+                        onClick={handleNewAppt}
+                    >
+                        <AddIcon /> Add another appointment type
+                    </Button>
+                    <Button 
+                        size='sm' 
+                        style={styles.button} 
+                        variant='outline-danger'
+                        onClick={handleRemoveAppt}
+                    >
+                        <RemoveIcon /> Remove
+                    </Button>
+                </Form>
                 <Button 
-                    size='sm' 
-                    style={styles.button} 
-                    variant='outline-secondary'
-                    onClick={handleNewAppt}
+                    style={styles.button}
+                    onClick={handleSave}
                 >
-                    <AddIcon /> Add another appointment type
+                    Save Calendar
                 </Button>
-                <Button 
-                    size='sm' 
-                    style={styles.button} 
-                    variant='outline-danger'
-                    onClick={handleRemoveAppt}
-                >
-                    <RemoveIcon /> Remove
-                </Button>
-            </Form>
+            </div>
         )
     }
 

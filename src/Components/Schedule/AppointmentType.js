@@ -12,8 +12,8 @@ function AppointmentType({ setAppts, appts }) {
     }
 
     const handleTime = (event) => {
-        setMinutes(event.target.value)
-        setAppts([...appts, {type: apptType, minutes: event.target.value}])
+        setMinutes(parseInt(event.target.value))
+        setAppts([...appts, {type: apptType, minutes: parseInt(event.target.value)}])
     }
 
 
