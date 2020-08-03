@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
+import AddIcon from '@material-ui/icons/Add'
+import AppointmentType from '../Schedule/AppointmentType'
+import RemoveIcon from '@material-ui/icons/Remove'
 
 const styles = {
     center: {
@@ -9,6 +12,10 @@ const styles = {
     },
     form: {
         paddingTop: 20,
+    },
+    button: {
+        marginTop: 10,
+        marginRight: 5,
     }
 }
 
@@ -16,6 +23,8 @@ function Schedule(props) {
 
     const [newCal, setNewCal] = useState(false)
     const [calName, setCalName] = useState('')
+    const [appts, setAppts] = useState([])
+    const [apptTypes, setApptTypes] = useState([<AppointmentType setAppts={setAppts} appts={appts} key={0} />])
 
     const handleNewCal = (e) => {
         e.preventDefault()
@@ -26,12 +35,15 @@ function Schedule(props) {
         setCalName(event.target.value)
     }
 
-    const handleAppt = (event) => {
-
+    const handleNewAppt = (e) => {
+        e.preventDefault()
+        setApptTypes([...apptTypes, <AppointmentType setAppts={setAppts} appts={appts} key={apptTypes.length} />])
     }
 
-    const handleTime = (event) => {
-
+    const handleRemoveAppt = (e) => {
+        e.preventDefault()
+        var newArr = apptTypes.splice(0, apptTypes.length - 1)
+        setApptTypes(newArr)
     }
 
     const newCalForm = () => {
@@ -41,28 +53,27 @@ function Schedule(props) {
                     <Form.Label>Calendar Name</Form.Label>
                     <Form.Control onChange={handleName} type="name" placeholder="Enter name" />
                 </Form.Group>
-                <Form.Group controlId="calAppt">
-                    <Form.Label>Appointment Type</Form.Label>
-                    <Form.Control onChange={handleAppt} type="appt" placeholder="Enter appointment type" />
-                    <Form.Label>Appointment Duration</Form.Label>
-                    <Form.Control as='select' onChange={handleTime} type="appt" placeholder="Enter the amount of time for this type of appointment">
-                        <option value={15}>15 min</option>
-                        <option value={30}>30 min</option>
-                        <option value={45}>45 min</option>
-                        <option value={60}>1 hour</option>
-                        <option value={90}>1 hour 30 min</option>
-                        <option value={120}>2 hour</option>
-                        <option value={150}>2 hour 30 min</option>
-                        <option value={180}>3 hour</option>
-                        <option value={210}>3 hour 30 min</option>
-                        <option value={240}>4 hour</option>
-                        <option value={300}>5 hour</option>
-                    </Form.Control>
-                    <Button>Add another appointment</Button>
-                </Form.Group>
+                {apptTypes}
+                <Button 
+                    size='sm' 
+                    style={styles.button} 
+                    variant='outline-secondary'
+                    onClick={handleNewAppt}
+                >
+                    <AddIcon /> Add another appointment type
+                </Button>
+                <Button 
+                    size='sm' 
+                    style={styles.button} 
+                    variant='outline-danger'
+                    onClick={handleRemoveAppt}
+                >
+                    <RemoveIcon /> Remove
+                </Button>
             </Form>
         )
     }
+
 
     return (
         <div>
