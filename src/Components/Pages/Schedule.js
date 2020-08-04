@@ -49,7 +49,6 @@ function Schedule(props) {
     const handleSave = (e) => {
         e.preventDefault()
         alert('Save Calendar')
-        console.log(appts)
     }
 
     const newCalForm = () => {
@@ -58,32 +57,33 @@ function Schedule(props) {
                 <Form style={styles.form}>
                     <Form.Group controlId="calName">
                         <Form.Label>Calendar Name</Form.Label>
-                        <Form.Control onChange={handleName} type="name" placeholder="Enter name" />
-                    </Form.Group>
+                        <Form.Control onChange={handleName} type="name" placeholder="Enter name" required/>
                     {apptTypes}
+                        <Button 
+                            size='sm' 
+                            style={styles.button} 
+                            variant='outline-secondary'
+                            onClick={handleNewAppt}
+                        >
+                            <AddIcon /> Add another appointment type
+                        </Button>
+                        <Button 
+                            size='sm' 
+                            style={styles.button} 
+                            variant='outline-danger'
+                            onClick={handleRemoveAppt}
+                        >
+                            <RemoveIcon /> Remove
+                        </Button>
+                    </Form.Group>
                     <Button 
-                        size='sm' 
-                        style={styles.button} 
-                        variant='outline-secondary'
-                        onClick={handleNewAppt}
+                    type="submit"
+                    style={styles.button}
+                    //onClick={handleSave}
                     >
-                        <AddIcon /> Add another appointment type
-                    </Button>
-                    <Button 
-                        size='sm' 
-                        style={styles.button} 
-                        variant='outline-danger'
-                        onClick={handleRemoveAppt}
-                    >
-                        <RemoveIcon /> Remove
+                        Save Calendar
                     </Button>
                 </Form>
-                <Button 
-                    style={styles.button}
-                    onClick={handleSave}
-                >
-                    Save Calendar
-                </Button>
             </div>
         )
     }
